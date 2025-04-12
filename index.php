@@ -1,6 +1,15 @@
 <?php
+require_once'db_conect';
+session_start();
+$erros=array();
+$login=mysqli_escape_string($connect,$POST['Login']);
+$senha=mysqli_escape_string($connect,$POST['Password']);
 if(isset($_POST['login'])){
-    echo"Clicou";
+    if(empty($login) or empty(empty($password))){
+
+        $erros[]="<li> o campo de nome ou de password esta vazio</>";
+    }
+    
 }
 ?>
 <!DOCTYPE html>
@@ -15,13 +24,20 @@ if(isset($_POST['login'])){
     <div class="FORM-BODY">
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
         <h5>Log in to Spotify</h5>
+<?php
+if(!empty($erros)){
+    foreach($erros as $erro){
+        echo $erro;
+    }
+}
+?>
         <button class="Btn-1"> Continue with Google</button><br>
         <button class="Btn-2"> Continue with Facebook</button><br>
         <button class="Btn-3">Continue with Appple</button>
         <Hr class="hr-1"></Hr>
         <input id="Email" placeholder="Email or username" type="text" required>
         <br><input id="password" p+laceholder="Password" type="password" required><br>
-    <button name="login" type="submit">Log In</button><br>
+    <button id="boton" name="login" type="submit">Log In</button><br>
     <a target="_blank" href="#">Forgot your password?</a><br>
  Don't have an account?<br>
     <a href="#" target="_blank" rel="noopener noreferrer">Sign up for Spotify</a>
